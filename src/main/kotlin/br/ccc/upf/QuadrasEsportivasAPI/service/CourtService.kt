@@ -4,14 +4,14 @@ import br.ccc.upf.QuadrasEsportivasAPI.converter.CourtConverter
 import br.ccc.upf.QuadrasEsportivasAPI.dto.CourtDTO
 import br.ccc.upf.QuadrasEsportivasAPI.dto.CourtResponseDTO
 import br.ccc.upf.QuadrasEsportivasAPI.exception.NotFoundException
-import br.ccc.upf.QuadrasEsportivasAPI.model.Court
 import br.ccc.upf.QuadrasEsportivasAPI.repository.CourtRepository
 import org.springframework.stereotype.Service
 
 private const val COURT_NOT_FOUND_MESSAGE = "Quadra não encontrado!"
 
 @Service
-class CourtService(private val repository: CourtRepository,
+class CourtService(
+    private val repository: CourtRepository,
     private val converter: CourtConverter) {
 
     fun list():List<CourtResponseDTO> {

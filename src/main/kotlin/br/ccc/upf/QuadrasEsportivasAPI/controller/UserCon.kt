@@ -1,8 +1,8 @@
 package br.ccc.upf.QuadrasEsportivasAPI.controller
 
-import br.ccc.upf.QuadrasEsportivasAPI.dto.CourtDTO
-import br.ccc.upf.QuadrasEsportivasAPI.dto.CourtResponseDTO
-import br.ccc.upf.QuadrasEsportivasAPI.service.CourtService
+import br.ccc.upf.QuadrasEsportivasAPI.dto.UserDTO
+import br.ccc.upf.QuadrasEsportivasAPI.dto.UserResponseDTO
+import br.ccc.upf.QuadrasEsportivasAPI.service.UserService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -17,42 +17,43 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.util.UriComponentsBuilder
 
+
 @RestController
-@RequestMapping("/court")
-class CourtCon(val service: CourtService) {
+@RequestMapping("/user")
+class UserCon (val service: UserService){
 
     @GetMapping
-    fun list(): List<CourtResponseDTO>{
+    fun list(): List<UserResponseDTO>{
         return service.list()
     }
 
     @GetMapping("/{id}")
-    fun searchById(@PathVariable id: Long): CourtResponseDTO{
+    fun searchById(@PathVariable id: Long):UserResponseDTO{
         return service.searchById(id)
     }
 
     @PostMapping
-    fun create(@RequestBody @Valid dto : CourtDTO,
+    fun create(@RequestBody @Valid dto : UserDTO,
                uriBuilder: UriComponentsBuilder
-    ) : ResponseEntity<CourtResponseDTO> {
+    ) : ResponseEntity<UserResponseDTO>{
 
-        val courtResponse = service.create(dto)
+        val userResponse = service.create(dto)
 
-        val uri = uriBuilder.path("/court/${courtResponse.id}")
+        val uri = uriBuilder.path("/user/${userResponse.id}")
             .build().toUri()
-        return ResponseEntity.created(uri).body(courtResponse)
+
+        return ResponseEntity.created(uri).body(userResponse)
     }
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: Long,
-               @RequestBody @Valid dto: CourtDTO
-    ): CourtResponseDTO {
+               @RequestBody @Valid dto: UserDTO):UserResponseDTO{
         return service.update(id, dto)
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun delete(@PathVariable id: Long){
+    fun delete(@PathVariable id:Long){
         service.delete(id)
     }
 

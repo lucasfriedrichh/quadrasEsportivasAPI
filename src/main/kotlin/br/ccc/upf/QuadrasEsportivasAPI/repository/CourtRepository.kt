@@ -10,13 +10,7 @@ class CourtRepository (private var listCourt: MutableList<Court>){
     private var idCont = 4L
 
     init {
-        val courtExemple = Court(
-            id = 1,
-            description = "Exemple 1",
-            status = StatusCourt.AVALIABLE
-        )
-
-        listCourt = mutableListOf(courtExemple)
+        listCourt = mutableListOf()
     }
 
     fun findAll() = listCourt

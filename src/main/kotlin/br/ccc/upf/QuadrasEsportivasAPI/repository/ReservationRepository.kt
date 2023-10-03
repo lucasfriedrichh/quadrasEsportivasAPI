@@ -1,9 +1,9 @@
 package br.ccc.upf.QuadrasEsportivasAPI.repository
 
-import br.ccc.upf.QuadrasEsportivasAPI.model.User
+import br.ccc.upf.QuadrasEsportivasAPI.model.Reservation
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface UserRepository: JpaRepository<User, Long> {
+interface ReservationRepository: JpaRepository<Reservation, Long> {
 }

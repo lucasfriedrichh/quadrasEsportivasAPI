@@ -13,8 +13,7 @@ class UserConverter {
             name = dto.name,
             email = dto.name,
             phone = dto.phone,
-            city = dto.phone,
-            password = dto.password
+            city = dto.phone
         )
     }
 
@@ -23,8 +22,7 @@ class UserConverter {
             name = user.name,
             email = user.name,
             phone = user.phone,
-            city = user.phone,
-            password = user.password
+            city = user.phone
         )
     }
 
@@ -34,8 +32,7 @@ class UserConverter {
             name = user.name,
             email = user.name,
             phone = user.phone,
-            city = user.phone,
-            password = user.password
+            city = user.phone
         )
     }
 }

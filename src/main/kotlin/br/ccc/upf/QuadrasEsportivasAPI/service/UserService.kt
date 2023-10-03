@@ -11,7 +11,7 @@ import org.apache.catalina.User
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
 
-private const val COURT_NOT_FOUND_MESSAGE = "Usuario nao encontrado"
+private const val USER_NOT_FOUND_MESSAGE = "Usuario nao encontrado"
 
 @Service
 class UserService(
@@ -24,27 +24,32 @@ class UserService(
     }
 
     fun searchById(id:Long): UserResponseDTO{
-        val user = repository.findAll().firstOrNull{it.id == id}
-            ?: throw NotFoundException(COURT_NOT_FOUND_MESSAGE)
-
+        val user = repository.findById(id)
+            .orElseThrow { NotFoundException(USER_NOT_FOUND_MESSAGE) }
         return converter.toUserResponseDTO(user)
     }
 
-    fun create(userDTO: UserDTO):UserResponseDTO{
-        val user =  repository.create(converter.toUser(userDTO))
-        return converter.toUserResponseDTO(user)
+    fun create(dto: UserDTO):UserResponseDTO{
+        return converter.toUserResponseDTO(
+            repository.save(converter.toUser(dto))
+        )
     }
 
-    fun update(id: Long, userDTO: UserDTO) : UserResponseDTO {
-        val user = repository.findAll().firstOrNull() { it.id == id }
-            ?: throw NotFoundException(COURT_NOT_FOUND_MESSAGE)
+    fun update(id: Long, dto: UserDTO) : UserResponseDTO {
+        val user = repository.findById(id)
+            .orElseThrow{NotFoundException(USER_NOT_FOUND_MESSAGE)}
+            .copy(
+                name = dto.name,
+                city = dto.city,
+                phone = dto.phone,
+                email = dto.email
+            )
 
-        val userWithId = repository.update(user, converter.toUser(userDTO))
-
-        return converter.toUserResponseDTO(userWithId)
+        return converter.toUserResponseDTO( repository.save(user))
     }
+
     fun delete(id: Long){
-        repository.delete(id)
+        repository.deleteById(id)
     }
 
 }

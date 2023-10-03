@@ -8,6 +8,5 @@ data class UserDTO (
     val city: String,
     @field:NotEmpty(message = "Todo usuario deve ter um email")
     val email: String,
-    val phone: String,
-    val password: String
+    val phone: String
 )

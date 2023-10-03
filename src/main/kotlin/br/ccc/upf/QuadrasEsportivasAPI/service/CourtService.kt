@@ -12,7 +12,8 @@ private const val COURT_NOT_FOUND_MESSAGE = "Quadra não encontrado!"
 @Service
 class CourtService(
     private val repository: CourtRepository,
-    private val converter: CourtConverter) {
+    private val converter: CourtConverter
+) {
 
     fun list():List<CourtResponseDTO> {
         return repository.findAll()
@@ -20,27 +21,30 @@ class CourtService(
     }
 
     fun searchById(id : Long) : CourtResponseDTO{
-        val court = repository.findAll().firstOrNull {it.id == id }
-            ?: throw NotFoundException(COURT_NOT_FOUND_MESSAGE)
+        val court = repository.findById(id)
+            .orElseThrow { NotFoundException(COURT_NOT_FOUND_MESSAGE) }
         return converter.toCourtResponseDTO(court)
     }
 
-    fun create(courtDTO: CourtDTO) : CourtResponseDTO{
-        val court =  repository.create(converter.toCourt(courtDTO))
-        return converter.toCourtResponseDTO(court)
+    fun create(dto: CourtDTO) : CourtResponseDTO{
+        return converter.toCourtResponseDTO(
+            repository.save(converter.toCourt(dto))
+        )
     }
 
-    fun update(id: Long, courtDTO: CourtDTO) : CourtResponseDTO{
-        val court = repository.findAll().firstOrNull() { it.id == id }
-            ?: throw NotFoundException(COURT_NOT_FOUND_MESSAGE)
+    fun update(id: Long, dto: CourtDTO) : CourtResponseDTO{
+        val court = repository.findById(id)
+            .orElseThrow { NotFoundException(COURT_NOT_FOUND_MESSAGE) }
+            .copy(
+                description = dto.description,
+                status = dto.status
+            )
+        return converter.toCourtResponseDTO(repository.save(court))
 
-        val courtWithId = repository.update(court, converter.toCourt(courtDTO))
-
-        return converter.toCourtResponseDTO(courtWithId)
     }
 
     fun delete(id: Long){
-        repository.delete(id)
+        repository.deleteById(id)
     }
 
 }

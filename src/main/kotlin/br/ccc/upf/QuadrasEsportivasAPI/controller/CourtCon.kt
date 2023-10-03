@@ -3,7 +3,10 @@ package br.ccc.upf.QuadrasEsportivasAPI.controller
 import br.ccc.upf.QuadrasEsportivasAPI.dto.CourtDTO
 import br.ccc.upf.QuadrasEsportivasAPI.dto.CourtResponseDTO
 import br.ccc.upf.QuadrasEsportivasAPI.service.CourtService
+import jakarta.transaction.Transactional
 import jakarta.validation.Valid
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.util.UriComponentsBuilder
@@ -22,7 +26,10 @@ import org.springframework.web.util.UriComponentsBuilder
 class CourtCon(val service: CourtService) {
 
     @GetMapping
-    fun list(): List<CourtResponseDTO>{
+    fun list(
+        @RequestParam(required = false) nameCourt: String?,
+        @PageableDefault(size = 10) paginacao: Pageable
+    ): List<CourtResponseDTO>{
         return service.list()
     }
 
@@ -32,6 +39,7 @@ class CourtCon(val service: CourtService) {
     }
 
     @PostMapping
+    @Transactional
     fun create(@RequestBody @Valid dto : CourtDTO,
                uriBuilder: UriComponentsBuilder
     ) : ResponseEntity<CourtResponseDTO> {
@@ -44,6 +52,7 @@ class CourtCon(val service: CourtService) {
     }
 
     @PutMapping("/{id}")
+    @Transactional
     fun update(@PathVariable id: Long,
                @RequestBody @Valid dto: CourtDTO
     ): CourtResponseDTO {
@@ -52,6 +61,7 @@ class CourtCon(val service: CourtService) {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
     fun delete(@PathVariable id: Long){
         service.delete(id)
     }

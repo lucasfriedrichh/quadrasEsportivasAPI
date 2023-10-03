@@ -1,4 +1,4 @@
-package br.ccc.upf.QuadrasEsportivasAPI.dto
+package br.upf.sistemaeventos.dtos
 
 import java.time.LocalDateTime
 
@@ -8,5 +8,4 @@ data class ErrorResponseDTO (
     val error: String,
     val massage: String,
     val path: String
-
 )

@@ -5,6 +5,8 @@ import br.ccc.upf.QuadrasEsportivasAPI.dto.CourtDTO
 import br.ccc.upf.QuadrasEsportivasAPI.dto.CourtResponseDTO
 import br.ccc.upf.QuadrasEsportivasAPI.exception.NotFoundException
 import br.ccc.upf.QuadrasEsportivasAPI.repository.CourtRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 private const val COURT_NOT_FOUND_MESSAGE = "Quadra não encontrado!"
@@ -15,8 +17,15 @@ class CourtService(
     private val converter: CourtConverter
 ) {
 
-    fun list():List<CourtResponseDTO> {
-        return repository.findAll()
+    fun list(
+        nameCourt: String?,
+        pagination: Pageable): Page<CourtResponseDTO> {
+        val courts = if (nameCourt == null) {
+            repository.findAll(pagination)
+        } else {
+            repository.findByDescription(nameCourt, pagination)
+        }
+        return courts
             .map(converter::toCourtResponseDTO)
     }
 

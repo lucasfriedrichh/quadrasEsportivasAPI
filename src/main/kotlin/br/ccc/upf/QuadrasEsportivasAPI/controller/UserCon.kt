@@ -3,6 +3,7 @@ package br.ccc.upf.QuadrasEsportivasAPI.controller
 import br.ccc.upf.QuadrasEsportivasAPI.dto.UserDTO
 import br.ccc.upf.QuadrasEsportivasAPI.dto.UserResponseDTO
 import br.ccc.upf.QuadrasEsportivasAPI.service.UserService
+import jakarta.transaction.Transactional
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -33,19 +34,18 @@ class UserCon (val service: UserService){
     }
 
     @PostMapping
+    @Transactional
     fun create(@RequestBody @Valid dto : UserDTO,
                uriBuilder: UriComponentsBuilder
     ) : ResponseEntity<UserResponseDTO>{
-
         val userResponse = service.create(dto)
-
         val uri = uriBuilder.path("/user/${userResponse.id}")
             .build().toUri()
-
         return ResponseEntity.created(uri).body(userResponse)
     }
 
     @PutMapping("/{id}")
+    @Transactional
     fun update(@PathVariable id: Long,
                @RequestBody @Valid dto: UserDTO):UserResponseDTO{
         return service.update(id, dto)
@@ -53,6 +53,7 @@ class UserCon (val service: UserService){
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
     fun delete(@PathVariable id:Long){
         service.delete(id)
     }

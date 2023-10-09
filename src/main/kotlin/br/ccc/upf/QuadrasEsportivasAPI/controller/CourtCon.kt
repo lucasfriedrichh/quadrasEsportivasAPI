@@ -5,6 +5,7 @@ import br.ccc.upf.QuadrasEsportivasAPI.dto.CourtResponseDTO
 import br.ccc.upf.QuadrasEsportivasAPI.service.CourtService
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
@@ -27,10 +28,10 @@ class CourtCon(val service: CourtService) {
 
     @GetMapping
     fun list(
-        @RequestParam(required = false) nameCourt: String?,
-        @PageableDefault(size = 10) paginacao: Pageable
-    ): List<CourtResponseDTO>{
-        return service.list()
+        @RequestParam(required = false) courtName: String?,
+        @PageableDefault(size = 10) pagination: Pageable
+    ): Page<CourtResponseDTO>{
+        return service.list(courtName, pagination)
     }
 
     @GetMapping("/{id}")

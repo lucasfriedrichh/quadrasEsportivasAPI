@@ -10,4 +10,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CourtRepository : JpaRepository<Court, Long>{
+
+    fun findByDescription(name:String, pagination: Pageable) : Page<Court>
+
 }

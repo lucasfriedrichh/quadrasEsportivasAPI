@@ -1,6 +1,6 @@
 package br.ccc.upf.QuadrasEsportivasAPI.model
 
-import jakarta.persistence.*import jakarta.persistence.*
+import jakarta.persistence.*
 
 @Entity
 data class Court(

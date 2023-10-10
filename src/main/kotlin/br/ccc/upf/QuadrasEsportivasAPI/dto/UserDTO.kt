@@ -1,7 +1,5 @@
 package br.ccc.upf.QuadrasEsportivasAPI.dto
 
-import jakarta.validation.constraints.NotEmpty
-
 data class UserDTO (
     val name: String,
     val city: String,

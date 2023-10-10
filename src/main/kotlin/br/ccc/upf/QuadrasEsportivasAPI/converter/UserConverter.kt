@@ -3,26 +3,19 @@ package br.ccc.upf.QuadrasEsportivasAPI.converter
 import br.ccc.upf.QuadrasEsportivasAPI.dto.UserDTO
 import br.ccc.upf.QuadrasEsportivasAPI.dto.UserResponseDTO
 import br.ccc.upf.QuadrasEsportivasAPI.model.User
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
 
 @Component
 class UserConverter {
 
-    fun toUser(dto : UserDTO) : User {
+    fun toUser(dto: UserDTO): User {
         return User(
             name = dto.name,
-            email = dto.name,
+            city = dto.city,
             phone = dto.phone,
-            city = dto.phone
-        )
-    }
-
-    fun toUserDTO(user: User) : UserDTO {
-        return UserDTO(
-            name = user.name,
-            email = user.name,
-            phone = user.phone,
-            city = user.phone
+            email = dto.email,
+            senha = BCryptPasswordEncoder().encode(dto.password)
         )
     }
 
@@ -30,9 +23,9 @@ class UserConverter {
         return UserResponseDTO(
             id = user.id,
             name = user.name,
-            email = user.name,
+            city = user.phone,
             phone = user.phone,
-            city = user.phone
+            email = user.email
         )
     }
 }

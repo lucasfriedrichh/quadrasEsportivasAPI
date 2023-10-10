@@ -14,7 +14,5 @@ data class Reservation(
     val time: LocalDateTime,
     @ManyToOne
     val user: User
-){
-    constructor() : this(null, LocalDateTime.now(), User())
-}
+)
 

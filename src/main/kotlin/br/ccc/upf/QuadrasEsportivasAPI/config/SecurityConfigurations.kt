@@ -26,7 +26,7 @@ class SecurityConfigurations {
                 it.sessionCreationPolicy(SessionCreationPolicy. STATELESS)
             }
             .authorizeHttpRequests {
-                it.requestMatchers(HttpMethod. POST, "/court").hasRole("ADMIN")
+                it.requestMatchers(HttpMethod. POST, "/court").permitAll()
                     .requestMatchers(HttpMethod. GET, "/court").permitAll()
                     .requestMatchers( "/user").hasRole("ADMIN")
                     .requestMatchers("/auth/*").permitAll()

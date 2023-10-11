@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfigurations {
+class SecurityConfigurations(val securityFilter: SecurityFilter) {
     @Bean
     fun securityFilterChain (
         httpSecurity: HttpSecurity
@@ -26,12 +26,13 @@ class SecurityConfigurations {
                 it.sessionCreationPolicy(SessionCreationPolicy. STATELESS)
             }
             .authorizeHttpRequests {
-                it.requestMatchers(HttpMethod. POST, "/court").permitAll()
+                it.requestMatchers(HttpMethod. POST, "/court").hasRole("ADMIN")
                     .requestMatchers(HttpMethod. GET, "/court").permitAll()
-                    .requestMatchers( "/user").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
                     .requestMatchers("/auth/*").permitAll()
                     .anyRequest().authenticated()
             }
+            .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)
             .build()
     }
 

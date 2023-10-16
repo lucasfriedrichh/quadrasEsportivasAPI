@@ -26,9 +26,18 @@ class SecurityConfigurations(val securityFilter: SecurityFilter) {
                 it.sessionCreationPolicy(SessionCreationPolicy. STATELESS)
             }
             .authorizeHttpRequests {
-                it.requestMatchers(HttpMethod. POST, "/court").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod. GET, "/court").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
+                it.requestMatchers(HttpMethod. POST, "/court").hasRole("ADMIN") //New Court
+                    .requestMatchers(HttpMethod. GET, "/court").permitAll() //Get Court
+                    .requestMatchers(HttpMethod. DELETE, "/court").permitAll()
+                    .requestMatchers(HttpMethod. PUT, "/court").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/user").hasRole("ADMIN") // Get User
+                    .requestMatchers(HttpMethod.DELETE, "/user").hasRole("ADMIN") // Delete User
+                    .requestMatchers(HttpMethod.PUT, "/user").hasRole("ADMIN") // Get User
+                    .requestMatchers(HttpMethod.POST, "/user").hasRole("ADMIN") // Get User
+                    .requestMatchers(HttpMethod.GET, "/reservation").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/reservation").permitAll()
+                    .requestMatchers(HttpMethod.DELETE, "/reservation").permitAll()
+                    .requestMatchers(HttpMethod.PUT, "/reservation").permitAll()
                     .requestMatchers("/auth/*").permitAll()
                     .anyRequest().authenticated()
             }

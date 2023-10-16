@@ -13,6 +13,7 @@ data class Reservation(
     val id: Long? = null,
     val time: LocalDateTime,
     @ManyToOne
-    val user: User
+    val user: User,
+    val description: String
 )
 

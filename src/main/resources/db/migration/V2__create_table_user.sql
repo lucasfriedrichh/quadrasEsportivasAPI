@@ -1,5 +1,6 @@
 CREATE TABLE `user`(
     `id` bigint NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `description` varchar(225) DEFAULT NULL,
-    `status` enum('AVAILABLE', 'MAINTENANCE', 'BROKEN') DEFAULT NULL
+    `city` varchar(255) DEFAULT NULL,
+    `name` varchar(255) NOT NULL,
+    `phone` varchar(255) DEFAULT NULL
 );

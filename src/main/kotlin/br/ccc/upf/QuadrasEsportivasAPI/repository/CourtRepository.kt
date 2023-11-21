@@ -1,8 +1,6 @@
 package br.ccc.upf.QuadrasEsportivasAPI.repository
 
 import br.ccc.upf.QuadrasEsportivasAPI.model.Court
-import br.ccc.upf.QuadrasEsportivasAPI.model.Reservation
-import br.ccc.upf.QuadrasEsportivasAPI.model.StatusCourt
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository

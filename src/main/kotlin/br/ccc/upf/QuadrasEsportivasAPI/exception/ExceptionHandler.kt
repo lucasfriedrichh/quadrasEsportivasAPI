@@ -1,6 +1,6 @@
 package br.ccc.upf.QuadrasEsportivasAPI.exception
 
-import br.upf.sistemaeventos.dtos.ErrorResponseDTO
+import br.ccc.upf.QuadrasEsportivasAPI.ErrorResponseDTO
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException

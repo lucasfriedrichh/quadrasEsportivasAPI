@@ -11,6 +11,4 @@ data class ReservationDTO(
     val user: User,
     @field:NotNull(message = "Toda reserva deve ter uma descricao")
     val description: String
-
-
 )

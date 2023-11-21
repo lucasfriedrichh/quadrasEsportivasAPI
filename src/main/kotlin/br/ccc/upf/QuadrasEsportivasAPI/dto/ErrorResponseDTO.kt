@@ -1,4 +1,4 @@
-package br.upf.sistemaeventos.dtos
+package br.ccc.upf.QuadrasEsportivasAPI
 
 import java.time.LocalDateTime
 

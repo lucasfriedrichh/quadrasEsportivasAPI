@@ -1,14 +1,10 @@
 package br.ccc.upf.QuadrasEsportivasAPI.service
 
 import br.ccc.upf.QuadrasEsportivasAPI.converter.UserConverter
-import br.ccc.upf.QuadrasEsportivasAPI.dto.CourtDTO
-import br.ccc.upf.QuadrasEsportivasAPI.dto.CourtResponseDTO
 import br.ccc.upf.QuadrasEsportivasAPI.dto.UserDTO
 import br.ccc.upf.QuadrasEsportivasAPI.dto.UserResponseDTO
 import br.ccc.upf.QuadrasEsportivasAPI.exception.NotFoundException
 import br.ccc.upf.QuadrasEsportivasAPI.repository.UserRepository
-import org.apache.catalina.User
-import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
 
 private const val USER_NOT_FOUND_MESSAGE = "Usuario nao encontrado"
@@ -42,7 +38,6 @@ class UserService(
                 name = dto.name,
                 city = dto.city,
                 phone = dto.phone,
-                email = dto.email
             )
 
         return converter.toUserResponseDTO( repository.save(user))

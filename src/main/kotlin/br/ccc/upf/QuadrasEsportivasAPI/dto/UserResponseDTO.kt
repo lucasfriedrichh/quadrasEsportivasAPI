@@ -1,10 +1,7 @@
 package br.ccc.upf.QuadrasEsportivasAPI.dto
 
 data class UserResponseDTO(
-    val id:Long?,
-    val name: String,
+    val id: Long? = null,
+    val nome: String,
     val city: String,
-    val phone: String,
-    val email: String
-
-)
+    val phone: String)

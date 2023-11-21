@@ -1,6 +1,5 @@
 package br.ccc.upf.QuadrasEsportivasAPI.repository
 
-import br.ccc.upf.QuadrasEsportivasAPI.model.Court
 import br.ccc.upf.QuadrasEsportivasAPI.model.Reservation
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -9,6 +8,4 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ReservationRepository: JpaRepository<Reservation, Long> {
-    fun findByDescription(name:String, pagination: Pageable) : Page<Reservation>
-
 }
